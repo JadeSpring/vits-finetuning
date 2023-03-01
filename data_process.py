@@ -8,7 +8,7 @@ if __name__ == '__main__':
     for a in xx:
         a[1] = re.sub(r'#\d+', '', a[1])
 
-    all_clean = [f'Wave/{x[0]}.wav|10|{x[1]}' for x in xx]
+    all_clean = [f'Wave/{x[0]}.wav|10|[ZH]{x[1]}[ZH]' for x in xx]
     all_clean = all_clean[:160]
     train_clean = all_clean[:128]
     val_clean = all_clean[-32:]
