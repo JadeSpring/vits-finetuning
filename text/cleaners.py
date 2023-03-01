@@ -110,6 +110,23 @@ def chinese_cleaners(text):
     text += '。'
   return text
 
+def chinese_cleaners_v2(text):
+  '''Pipeline for Chinese text'''
+  text=number_to_chinese(text)
+  text=chinese_to_bopomofo(text)
+  text=latin_to_bopomofo(text)
+  text = bopomofo_to_romaji(text)
+  text = re.sub('i[aoe]', lambda x: 'y' + x.group(0)[1:], text)
+  text = re.sub('u[aoəe]', lambda x: 'w' + x.group(0)[1:], text)
+  text = re.sub('([ʦsɹ]`[⁼ʰ]?)([→↓↑]+)', lambda x: x.group(1) + 'ɹ`' + x.group(2), text).replace('ɻ',
+                                                                                                                 'ɹ`')
+  text = re.sub('([ʦs][⁼ʰ]?)([→↓↑]+)', lambda x: x.group(1) + 'ɹ' + x.group(2), text)
+
+  text = text[:-1]
+  if re.match('[A-Za-zɯɹəɥ→↓↑]', text[-1]):
+    text += '.'
+  return text
+
 def zh_ja_mixture_cleaners(text):
   chinese_texts=re.findall(r'\[ZH\].*?\[ZH\]',text)
   japanese_texts=re.findall(r'\[JA\].*?\[JA\]',text)
