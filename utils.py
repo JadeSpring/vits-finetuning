@@ -8,11 +8,21 @@ import subprocess
 import numpy as np
 from scipy.io.wavfile import read
 import torch
+import librosa
+import soundfile as sf
 
 MATPLOTLIB_FLAG = False
 
 logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 logger = logging
+
+
+def resample_rate(path,new_sample_rate=16000):
+  signal, sr = librosa.load(path, sr=None)
+  wavfile = path.split('.')[0]
+  file_name = wavfile + '_new.wav'
+  new_signal = librosa.resample(signal, orig_sr=sr, target_sr=new_sample_rate)  #
+  sf.write(file_name, new_signal, new_sample_rate)
 
 
 def load_checkpoint(checkpoint_path, model, optimizer=None):
