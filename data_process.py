@@ -9,8 +9,8 @@ if __name__ == '__main__':
     train_clean = all_clean[:160]
     val_clean = all_clean[-32:]
 
-    train_file_path = 'filelist/train.text'
-    val_file_path = 'filelist/val.text'
+    train_file_path = 'filelists/train.text'
+    val_file_path = 'filelists/val.text'
 
     with open(train_file_path, "w", encoding="utf-8") as f:
         f.writelines([x + "\n" for x in train_clean])
