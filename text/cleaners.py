@@ -101,6 +101,15 @@ def japanese_cleaners(text):
     text = re.sub(r'([^\.,!\?\-…~])$', r'\1.', text)
     return text
 
+def chinese_cleaners(text):
+  '''Pipeline for Chinese text'''
+  text=number_to_chinese(text)
+  text=chinese_to_bopomofo(text)
+  text=latin_to_bopomofo(text)
+  if re.match('[ˉˊˇˋ˙]',text[-1]):
+    text += '。'
+  return text
+
 def zh_ja_mixture_cleaners(text):
   chinese_texts=re.findall(r'\[ZH\].*?\[ZH\]',text)
   japanese_texts=re.findall(r'\[JA\].*?\[JA\]',text)
