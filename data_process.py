@@ -1,10 +1,13 @@
 from utils import load_filepaths_and_text
-import os
+import re
 
 if __name__ == '__main__':
     xx = load_filepaths_and_text("filelists/wave_info.txt")
 
-    # train_text = [f'{x[0]}|10|{x[1]}' for x in xx]
+    xx = xx[:160]
+    for a in xx:
+        a[1] = re.sub(r'#\d+', '', a[1])
+
     all_clean = [f'Wave/{x[0]}.wav|10|{x[1]}' for x in xx]
     all_clean = all_clean[:160]
     train_clean = all_clean[:128]
