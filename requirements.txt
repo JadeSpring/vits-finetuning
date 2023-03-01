@@ -10,3 +10,6 @@ unidecode
 pyopenjtalk
 protobuf
 tqdm
+jieba
+pypinyin
+cn2an
